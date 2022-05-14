@@ -1,6 +1,17 @@
 .app {
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
+  width: 100vw;
   height: 100vh;
+  background: #525360;
+}
+
+.appWrapper {
+  width: 330px;
+  height: 600px;
+  margin: 50px;
+  background: #191a2c;
+  border-radius: 30px;
 }

@@ -1,0 +1,48 @@
+.searchMovie {
+  width: 300px;
+  margin: auto;
+  color: #c4c4d4;
+
+  .searchInput {
+    width: 300px;
+    height: 25px;
+    margin: 15px 0;
+    background: #29293c;
+    border-radius: 20px;
+  }
+
+  button {
+    color: #c4c4d4;
+  }
+
+  input {
+    margin-left: 10px;
+    color: #c4c4d4;
+  }
+
+  footer {
+    display: flex;
+    justify-content: space-between;
+    width: 300px;
+    height: 30px;
+    margin-top: -15px;
+    background: #29293c;
+    border-radius: 30px;
+    opacity: 0.7;
+
+    button {
+      margin: auto;
+      color: white;
+    }
+
+    .tap {
+      color: #f72585;
+    }
+  }
+}
+
+.movieItemList {
+  width: 300px;
+  height: 520px;
+  overflow: scroll;
+}

@@ -39,6 +39,8 @@
     "i18n-iso-countries": "^7.4.0",
     "i18next": "^21.8.0",
     "i18next-browser-languagedetector": "^6.1.4",
+    "lodash": "^4.17.21",
+    "node-sass": "^7.0.1",
     "react": "^18.1.0",
     "react-dom": "^18.1.0",
     "react-i18next": "^11.16.9",
@@ -47,6 +49,7 @@
     "react-use": "^17.3.2",
     "recoil": "^0.7.3-alpha.2",
     "store": "^2.0.12",
+    "storejs": "^2.0.1",
     "web-vitals": "^2.1.0"
   },
   "devDependencies": {

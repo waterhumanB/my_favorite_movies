@@ -1,0 +1,28 @@
+.movie {
+  box-sizing: border-box;
+  display: flex;
+  width: 300px;
+  height: 200px;
+  margin-bottom: 10px;
+  color: #c4c4d4;
+  border: 1px solid #7d7d8e;
+  border-radius: 20px;
+
+  img {
+    width: 200px;
+    height: 198px;
+    border-radius: 20px;
+  }
+
+  .movieInfo {
+    align-items: center;
+    margin: auto;
+    text-align: center;
+
+    input {
+      width: 20px;
+      height: 20px;
+      background: white;
+    }
+  }
+}

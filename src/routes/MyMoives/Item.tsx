@@ -35,7 +35,7 @@ const Item = ({ item }: Props) => {
       <li className={styles.movie}>
         <button style={{ display: 'flex' }} type='button' onClick={modal}>
           <div>
-            <img src={item.Poster} alt='' />
+            <img src={item.Poster} alt='noPoster' />
           </div>
           <div className={styles.movieInfo}>
             <h3>{item.Title}</h3>

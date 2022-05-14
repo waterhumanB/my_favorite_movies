@@ -5,12 +5,19 @@ import { useRecoilState } from 'recoil'
 import { searchMoivesState } from 'states/moives'
 import styles from './MyMovies.module.scss'
 import cx from 'classnames'
+import { InView } from 'react-intersection-observer'
 
 const MyMovies = () => {
   const [movieList, setMovieList] = useRecoilState(searchMoivesState)
   const [searchData, setSearchData] = useState('')
   const [page, setPage] = useState<number>(1)
   const [tap, setTap] = useState(0)
+  const [inview, setInview] = useState(false)
+
+  const scrollHandler = () => {
+    setInview(true)
+    setPage(page + 1)
+  }
 
   const serachValue = (e: ChangeEvent<HTMLInputElement>) => {
     setSearchData(e.currentTarget.value)
@@ -29,6 +36,20 @@ const MyMovies = () => {
         alert('안댕')
       })
   }
+
+  useEffect(() => {
+    movieApi
+      .searchApi({ s: searchData, page: String(page) })
+      .then((res) => {
+        const SearchMovieList = res.data.Search
+        if (res.data.Response === 'True') {
+          setMovieList((prev) => prev.concat(SearchMovieList))
+        }
+      })
+      .catch((error) => {
+        alert('안댕')
+      })
+  }, [inview, page, setMovieList])
 
   const tapHandler = (e: MouseEvent<HTMLButtonElement>): void => {
     setTap(Number(e.currentTarget.id))
@@ -54,6 +75,7 @@ const MyMovies = () => {
                 .map((item) => <Item key={`movie_${item.imdbID}`} item={item} />)
             : (movieList.length === 0 && <div>검색결과 없음</div>) ||
               movieList?.map((item, index) => <Item key={`movie_${item.imdbID + index}`} item={item} />)}
+          <InView onChange={scrollHandler} />
         </ul>
       </main>
       <footer>

@@ -30,6 +30,7 @@ const Modal = ({ toggleModal, item }: Props) => {
   }
 
   useEffect(() => {
+    store.clear()
     store.set('MovieList', marekdList)
   }, [marekdList, Mark])
 

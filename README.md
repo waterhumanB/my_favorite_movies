@@ -1,5 +1,7 @@
 # 영화 검색 및 즐겨찾기
 
+배포 사이트 : https://waterhumanb.github.io/my_favorite_movies/
+
 # 기술 스택
 
 Tyscript, React, Recoil

@@ -80,10 +80,10 @@ const MyMovies = () => {
       </main>
       <footer>
         <button className={cx({ [styles.tap]: !tap })} id='0' onClick={tapHandler} type='button'>
-          Search
+          영화 검색하기
         </button>
         <button className={cx({ [styles.tap]: tap })} id='1' onClick={tapHandler} type='button'>
-          My Movies
+          내 즐겨찾기
         </button>
       </footer>
     </section>

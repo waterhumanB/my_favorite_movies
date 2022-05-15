@@ -7,6 +7,9 @@ import styles from './MyMovies.module.scss'
 import cx from 'classnames'
 import { InView } from 'react-intersection-observer'
 
+import { ReactComponent as Search50 } from 'assets/img/search-50.svg'
+import { ReactComponent as Search150 } from 'assets/img/search-150.svg'
+
 const MyMovies = () => {
   const [movieList, setMovieList] = useRecoilState(searchMoivesState)
   const [searchData, setSearchData] = useState('')
@@ -58,12 +61,12 @@ const MyMovies = () => {
   return (
     <section className={styles.searchMovie}>
       {tap ? (
-        <div className={styles.searchInput}>즐겨찾기</div>
+        <div className={styles.favorite}>즐겨찾기</div>
       ) : (
         <div className={styles.searchInput}>
           <input type='text' onChange={serachValue} />
           <button type='button' onClick={searchHandler}>
-            영화검색
+            <Search50 className={styles.search} />
           </button>
         </div>
       )}
@@ -73,19 +76,24 @@ const MyMovies = () => {
             ? movieList
                 ?.filter((item) => item.Mark === true)
                 .map((item) => <Item key={`movie_${item.imdbID}`} item={item} />)
-            : (movieList.length === 0 && <div>검색결과 없음</div>) ||
+            : (movieList.length === 0 && (
+                <div className={styles.nosearch}>
+                  <Search150 />
+                  <div>검색결과가 없습니다.</div>
+                </div>
+              )) ||
               movieList?.map((item, index) => <Item key={`movie_${item.imdbID + index}`} item={item} />)}
           <InView onChange={scrollHandler} />
         </ul>
       </main>
-      <footer>
+      <section className={styles.footer}>
         <button className={cx({ [styles.tap]: !tap })} id='0' onClick={tapHandler} type='button'>
           영화 검색하기
         </button>
         <button className={cx({ [styles.tap]: tap })} id='1' onClick={tapHandler} type='button'>
           내 즐겨찾기
         </button>
-      </footer>
+      </section>
     </section>
   )
 }

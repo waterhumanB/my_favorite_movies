@@ -1,10 +1,13 @@
+$FONT: #c4c4d4;
+
 .movie {
+  position: relative;
   box-sizing: border-box;
   display: flex;
   width: 300px;
   height: 200px;
   margin-bottom: 10px;
-  color: #c4c4d4;
+  color: $FONT;
   border: 1px solid #7d7d8e;
   border-radius: 20px;
 
@@ -16,7 +19,9 @@
 
   .movieInfo {
     align-items: center;
+    width: 100px;
     margin: auto;
+    color: $FONT;
     text-align: center;
 
     input {

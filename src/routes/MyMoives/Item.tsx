@@ -40,6 +40,7 @@ const Item = ({ item }: Props) => {
           <div className={styles.movieInfo}>
             <h3>{item.Title}</h3>
             <div>{item.Year}</div>
+            <div>{item.Type}</div>
           </div>
         </button>
       </li>

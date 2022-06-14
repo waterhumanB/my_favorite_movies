@@ -7,7 +7,7 @@ $FOCUS: #f72585;
   color: $FONT;
 
   .searchInput {
-    width: 300px;
+    display: flex;
     height: 35px;
     margin: 15px 0;
     background: #29293c;
@@ -23,7 +23,6 @@ $FOCUS: #f72585;
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 300px;
     height: 35px;
     margin: 15px 0;
     font-size: large;
@@ -32,7 +31,7 @@ $FOCUS: #f72585;
   }
 
   input {
-    height: 40px;
+    height: 35px;
     margin-left: 10px;
     color: $FONT;
   }
@@ -60,8 +59,9 @@ $FOCUS: #f72585;
 }
 
 .nosearch {
-  width: 150px;
+  width: 180px;
   margin: 150px auto;
+  text-align: center;
 
   svg {
     fill: $FONT;
@@ -75,7 +75,6 @@ $FOCUS: #f72585;
 }
 
 .movieItemList {
-  width: 300px;
   height: 510px;
   overflow: scroll;
 }

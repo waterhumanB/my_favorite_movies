@@ -11,7 +11,7 @@ interface Props {
 
 const Item = ({ item }: Props) => {
   const [isOpenModal, setOpenModal] = useState<boolean>(false)
-  const { Mark, imdbID } = item
+  const { imdbID } = item
   const [, setmarkedList] = useRecoilState(searchMoivesState)
 
   const ToggleModal = useCallback(() => {

@@ -1,58 +1,57 @@
-import { ChangeEvent, MouseEvent, useEffect, useState } from 'react'
-import Item from './Item'
+import { ChangeEvent, MouseEvent, useEffect, useState, useCallback } from 'react'
 import { movieApi } from '../utils/axios'
 import { useRecoilState } from 'recoil'
 import { searchMoivesState } from 'states/moives'
+import { InView } from 'react-intersection-observer'
+
 import styles from './MyMovies.module.scss'
 import cx from 'classnames'
-import { InView } from 'react-intersection-observer'
 
 import { ReactComponent as Search50 } from 'assets/img/search-50.svg'
 import { ReactComponent as Search150 } from 'assets/img/search-150.svg'
+import Item from './Item'
+
+const NO_RESULT = '검색 결과가 없습니다.'
+const NET_ERROR = '현재 검색이 불가능합니다.'
 
 const MyMovies = () => {
   const [movieList, setMovieList] = useRecoilState(searchMoivesState)
+  const [errorMessage, setErrorMessage] = useState<string>(NO_RESULT)
   const [searchData, setSearchData] = useState('')
   const [page, setPage] = useState<number>(1)
   const [tap, setTap] = useState(0)
-  const [inview, setInview] = useState(false)
-
-  const scrollHandler = () => {
-    setInview(true)
-    setPage(page + 1)
-  }
+  const [, setInview] = useState(false)
 
   const serachValue = (e: ChangeEvent<HTMLInputElement>) => {
     setSearchData(e.currentTarget.value)
   }
 
-  const searchHandler = async () => {
+  const scrollHandler = () => {
+    setInview(true)
+    setPage((prev) => prev + 1)
+  }
+
+  const searchHandler = useCallback(async () => {
+    if (!searchData) return
+    setErrorMessage(NO_RESULT)
     await movieApi
       .searchApi({ s: searchData, page: String(page) })
       .then((res) => {
         const SearchMovieList = res.data.Search
-        setMovieList(() => {
-          return SearchMovieList.map((list) => ({ ...list, Mark: false }))
-        })
+        if (res.data.Response === 'False') {
+          setErrorMessage(NET_ERROR)
+          return
+        }
+        setMovieList((prev) => prev.concat(SearchMovieList.map((list) => ({ ...list, Mark: false }))))
       })
-      .catch((error) => {
-        alert('안댕')
+      .catch(() => {
+        setErrorMessage(NET_ERROR)
       })
-  }
+  }, [page, searchData, setMovieList])
 
   useEffect(() => {
-    movieApi
-      .searchApi({ s: searchData, page: String(page) })
-      .then((res) => {
-        const SearchMovieList = res.data.Search
-        if (res.data.Response === 'True') {
-          setMovieList((prev) => prev.concat(SearchMovieList))
-        }
-      })
-      .catch((error) => {
-        alert('안댕')
-      })
-  }, [inview, page, setMovieList])
+    searchHandler()
+  }, [page])
 
   const tapHandler = (e: MouseEvent<HTMLButtonElement>): void => {
     setTap(Number(e.currentTarget.id))
@@ -79,21 +78,21 @@ const MyMovies = () => {
             : (movieList.length === 0 && (
                 <div className={styles.nosearch}>
                   <Search150 />
-                  <div>검색결과가 없습니다.</div>
+                  <div>{errorMessage}</div>
                 </div>
               )) ||
               movieList?.map((item, index) => <Item key={`movie_${item.imdbID + index}`} item={item} />)}
           <InView onChange={scrollHandler} />
         </ul>
       </main>
-      <section className={styles.footer}>
+      <footer className={styles.footer}>
         <button className={cx({ [styles.tap]: !tap })} id='0' onClick={tapHandler} type='button'>
           영화 검색하기
         </button>
         <button className={cx({ [styles.tap]: tap })} id='1' onClick={tapHandler} type='button'>
           내 즐겨찾기
         </button>
-      </section>
+      </footer>
     </section>
   )
 }

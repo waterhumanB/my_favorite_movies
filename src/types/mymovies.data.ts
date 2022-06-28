@@ -4,7 +4,6 @@ export interface ISearchMovies {
   imdbID: string
   Type: string
   Poster: string
-  Mark: boolean
 }
 
 export interface IMovie {

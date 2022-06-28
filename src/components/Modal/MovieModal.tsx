@@ -1,7 +1,7 @@
-import { MouseEvent, ChangeEvent, useEffect } from 'react'
+import { MouseEvent } from 'react'
 import styles from './modal.module.scss'
 import { ISearchMovies } from 'types/mymovies.data'
-import { searchMoivesState } from 'states/moives'
+import { markedMovieState } from 'states/moives'
 import { useRecoilState } from 'recoil'
 import store from 'storejs'
 
@@ -11,14 +11,34 @@ interface Props {
 }
 
 const Modal = ({ toggleModal, item }: Props) => {
-  const { Mark, imdbID } = item
-  const [marekdList, setmarkedList] = useRecoilState(searchMoivesState)
+  const { imdbID } = item
+  const [marekdList, setMarkedList] = useRecoilState(markedMovieState)
 
-  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const { checked } = e.currentTarget
-    setmarkedList((prev) => {
-      return prev.map((list) => (list.imdbID === imdbID ? { ...list, Mark: checked } : list))
-    })
+  const isMarked = () => {
+    return marekdList.find((data: ISearchMovies) => data.imdbID === imdbID)
+  }
+  const addMovie = () => {
+    const newMarkedMovie = isMarked() ? marekdList : [...marekdList, item]
+
+    setMarkedList(newMarkedMovie)
+    store.set('MovieList', newMarkedMovie)
+  }
+
+  const deleteMovie = () => {
+    const newMarkedMovie = marekdList.filter((data) => data.imdbID !== imdbID)
+
+    setMarkedList(newMarkedMovie)
+    store.set('MovieList', newMarkedMovie)
+  }
+  const handleChange = (e: { currentTarget: { name: string } }) => {
+    const { name } = e.currentTarget
+
+    if (name === '즐겨찾기 추가') {
+      addMovie()
+    } else if (name === '즐겨찾기 해제') {
+      deleteMovie()
+    }
+
     toggleModal()
   }
 
@@ -28,25 +48,21 @@ const Modal = ({ toggleModal, item }: Props) => {
       toggleModal()
     }
   }
-
-  useEffect(() => {
-    store.clear()
-    store.set('MovieList', marekdList)
-  }, [marekdList, Mark])
-
   return (
     <div aria-hidden onClick={modalHandler} className={styles.modalWrap}>
       <div className={styles.modal}>
         <img src={item.Poster} alt={item.Title} />
-        {Mark ? (
+        {isMarked() ? (
           <div className={styles.modalButton}>
-            <input type='checkbox' checked={Mark} onChange={handleChange} />
-            즐겨찾기 해제
+            <button type='button' name='즐겨찾기 해제' onClick={handleChange}>
+              즐겨찾기 해제
+            </button>
           </div>
         ) : (
           <div className={styles.modalButton}>
-            <input type='checkbox' checked={Mark} onChange={handleChange} />
-            즐겨찾기 추가
+            <button type='button' name='즐겨찾기 추가' onClick={handleChange}>
+              즐겨찾기 추가
+            </button>
           </div>
         )}
       </div>

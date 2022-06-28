@@ -1,21 +1,20 @@
-$FONT: #c4c4d4;
-$FOCUS: #f72585;
+@use '/src/styles/constants/colors';
 
 .searchMovie {
   width: 300px;
   margin: auto;
-  color: $FONT;
+  color: colors.$FONTCOLOR;
 
   .searchInput {
     display: flex;
     height: 35px;
     margin: 15px 0;
-    background: #29293c;
+    background: colors.$BACKGROUDN2;
     border-radius: 20px;
 
     button {
       margin-left: 20px;
-      color: $FONT;
+      color: colors.$FONTCOLOR;
     }
   }
 
@@ -26,14 +25,14 @@ $FOCUS: #f72585;
     height: 35px;
     margin: 15px 0;
     font-size: large;
-    background: #29293c;
+    background: colors.$BACKGROUDN2;
     border-radius: 20px;
   }
 
   input {
     height: 35px;
     margin-left: 10px;
-    color: $FONT;
+    color: colors.$FONTCOLOR;
   }
 
   .footer {
@@ -49,11 +48,11 @@ $FOCUS: #f72585;
     button {
       margin: auto;
       font-weight: bold;
-      color: $FONT;
+      color: colors.$FONTCOLOR;
     }
 
     .tap {
-      color: $FOCUS;
+      color: colors.$FOCUS;
     }
   }
 }
@@ -64,14 +63,26 @@ $FOCUS: #f72585;
   text-align: center;
 
   svg {
-    fill: $FONT;
+    fill: colors.$FONTCOLOR;
+  }
+}
+
+.nomarked {
+  width: 180px;
+  margin: 150px auto;
+  text-align: center;
+
+  svg {
+    width: 150px;
+    height: 150px;
+    fill: colors.$FONTCOLOR;
   }
 }
 
 .search {
   width: 20px;
   height: 20px;
-  fill: #c4c4d4;
+  fill: colors.$FONTCOLOR;
 }
 
 .movieItemList {

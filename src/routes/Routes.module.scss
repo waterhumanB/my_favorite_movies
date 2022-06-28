@@ -1,3 +1,6 @@
+$BACROUND: #525360;
+$APPBAROUND: #191a2c;
+
 .app {
   position: relative;
   display: flex;
@@ -5,13 +8,13 @@
   justify-content: center;
   width: 100vw;
   height: 100vh;
-  background: #525360;
+  background: $BACROUND;
 }
 
 .appWrapper {
   width: 330px;
   height: 600px;
   margin: 50px;
-  background: #191a2c;
+  background: $APPBAROUND;
   border-radius: 30px;
 }

@@ -1,21 +1,25 @@
 import { ChangeEvent, MouseEvent, useEffect, useState, useCallback } from 'react'
 import { movieApi } from '../utils/axios'
 import { useRecoilState } from 'recoil'
-import { searchMoivesState } from 'states/moives'
+import { markedMovieState, searchMoivesState } from 'states/moives'
 import { InView } from 'react-intersection-observer'
+import store from 'storejs'
 
 import styles from './MyMovies.module.scss'
 import cx from 'classnames'
 
 import { ReactComponent as Search50 } from 'assets/img/search-50.svg'
 import { ReactComponent as Search150 } from 'assets/img/search-150.svg'
+import { ReactComponent as Mark60 } from 'assets/img/mark-60.svg'
 import Item from './Item'
 
 const NO_RESULT = '검색 결과가 없습니다.'
 const NET_ERROR = '현재 검색이 불가능합니다.'
+const NO_MARKED = '즐겨찾기를 추가해 주세요!'
 
 const MyMovies = () => {
   const [movieList, setMovieList] = useRecoilState(searchMoivesState)
+  const [markedMovie, setMarekdMovie] = useRecoilState(markedMovieState)
   const [errorMessage, setErrorMessage] = useState<string>(NO_RESULT)
   const [searchData, setSearchData] = useState('')
   const [page, setPage] = useState<number>(1)
@@ -42,7 +46,7 @@ const MyMovies = () => {
           setErrorMessage(NET_ERROR)
           return
         }
-        setMovieList((prev) => prev.concat(SearchMovieList.map((list) => ({ ...list, Mark: false }))))
+        setMovieList((prev) => prev.concat(SearchMovieList.map((list) => ({ ...list }))))
       })
       .catch(() => {
         setErrorMessage(NET_ERROR)
@@ -53,8 +57,12 @@ const MyMovies = () => {
     searchHandler()
   }, [page])
 
+  useEffect(() => {
+    setMarekdMovie(store.get('MovieList') || [])
+  }, [setMarekdMovie])
+
   const tapHandler = (e: MouseEvent<HTMLButtonElement>): void => {
-    setTap(Number(e.currentTarget.id))
+    return setTap(Number(e.currentTarget.id))
   }
 
   return (
@@ -72,9 +80,13 @@ const MyMovies = () => {
       <main>
         <ul className={styles.movieItemList}>
           {tap
-            ? movieList
-                ?.filter((item) => item.Mark === true)
-                .map((item) => <Item key={`movie_${item.imdbID}`} item={item} />)
+            ? (markedMovie.length === 0 && (
+                <div className={styles.nomarked}>
+                  <Mark60 />
+                  <div>{NO_MARKED}</div>
+                </div>
+              )) ||
+              markedMovie?.map((item, index) => <Item key={`movie_${item.imdbID + index}`} item={item} />)
             : (movieList.length === 0 && (
                 <div className={styles.nosearch}>
                   <Search150 />

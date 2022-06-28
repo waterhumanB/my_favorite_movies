@@ -1,8 +1,6 @@
 import { ISearchMovies } from 'types/mymovies.data'
 import styles from './Item.module.scss'
-import { useRecoilState } from 'recoil'
-import { searchMoivesState } from 'states/moives'
-import { ChangeEvent, useState, useCallback } from 'react'
+import { useState, useCallback } from 'react'
 import Modal from '../../components/Modal/MovieModal'
 
 interface Props {
@@ -11,8 +9,6 @@ interface Props {
 
 const Item = ({ item }: Props) => {
   const [isOpenModal, setOpenModal] = useState<boolean>(false)
-  const { imdbID } = item
-  const [, setmarkedList] = useRecoilState(searchMoivesState)
 
   const ToggleModal = useCallback(() => {
     setOpenModal(!isOpenModal)
@@ -20,14 +16,6 @@ const Item = ({ item }: Props) => {
 
   const modal = () => {
     setOpenModal(!isOpenModal)
-  }
-
-  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const { checked } = e.currentTarget
-
-    setmarkedList((prev) => {
-      return prev.map((list) => (list.imdbID === imdbID ? { ...list, Mark: checked } : list))
-    })
   }
 
   return (

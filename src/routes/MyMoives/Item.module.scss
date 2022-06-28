@@ -1,32 +1,31 @@
-$FONT: #c4c4d4;
+@use '/src/styles/constants/colors';
 
 .movie {
   position: relative;
   box-sizing: border-box;
   display: flex;
   margin-bottom: 10px;
-  color: $FONT;
-  border: 1px solid #7d7d8e;
-  border-radius: 20px;
+  color: colors.$FONTCOLOR;
+  border: 1px solid colors.$BORDER;
+  border-radius: 15px;
 
   img {
     max-width: 102px;
     height: 150px;
     margin: 10px;
-    border-radius: 20px;
+    border-radius: 5px;
   }
 
   .movieInfo {
     align-items: center;
     width: 180px;
     margin: auto;
-    color: $FONT;
+    color: colors.$FONTCOLOR;
     text-align: center;
 
     input {
       width: 20px;
       height: 20px;
-      background: white;
     }
   }
 }

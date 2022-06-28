@@ -5,7 +5,7 @@
 # 기술 스택 및 사용 이유
 
 ``` 
-Tyscript, React, Recoil, SCSS, AXIOS
+Tyscript, React, Recoil, SCSS, Axios
 ```
 
 - TypeScript

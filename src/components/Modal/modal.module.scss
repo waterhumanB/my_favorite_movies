@@ -28,6 +28,17 @@
       border-radius: 20px;
     }
 
+    svg {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      fill: colors.$FONTCOLOR;
+    }
+
+    .mark {
+      fill: colors.$FOCUS;
+    }
+
     .modalButton {
       position: absolute;
       bottom: 10px;

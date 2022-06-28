@@ -15,7 +15,7 @@ import Item from './Item'
 
 const NO_RESULT = '검색 결과가 없습니다.'
 const NET_ERROR = '현재 검색이 불가능합니다.'
-const NO_MARKED = '즐겨찾기를 추가해 주세요!'
+const NO_MARKED = '즐겨찾기 영화가 없습니다.'
 
 const MyMovies = () => {
   const [movieList, setMovieList] = useRecoilState(searchMoivesState)

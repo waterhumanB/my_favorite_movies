@@ -3,7 +3,10 @@ import styles from './modal.module.scss'
 import { ISearchMovies } from 'types/mymovies.data'
 import { markedMovieState } from 'states/moives'
 import { useRecoilState } from 'recoil'
+import { ReactComponent as Mark30 } from 'assets/img/mark-30.svg'
+import Picture from 'assets/img/picture.svg'
 import store from 'storejs'
+import { cx } from 'styles'
 
 interface Props {
   toggleModal: () => void
@@ -11,7 +14,7 @@ interface Props {
 }
 
 const Modal = ({ toggleModal, item }: Props) => {
-  const { imdbID } = item
+  const { Poster, imdbID } = item
   const [marekdList, setMarkedList] = useRecoilState(markedMovieState)
 
   const isMarked = () => {
@@ -42,6 +45,10 @@ const Modal = ({ toggleModal, item }: Props) => {
     toggleModal()
   }
 
+  const handleImgError = (e: { currentTarget: { src: string } }, img: string): void => {
+    e.currentTarget.src = img
+  }
+
   const modalHandler = (e: MouseEvent) => {
     e.preventDefault()
     if (toggleModal && e.target === e.currentTarget) {
@@ -51,7 +58,8 @@ const Modal = ({ toggleModal, item }: Props) => {
   return (
     <div aria-hidden onClick={modalHandler} className={styles.modalWrap}>
       <div className={styles.modal}>
-        <img src={item.Poster} alt={item.Title} />
+        <img src={Poster} alt='MoviePoster' onError={(e) => handleImgError(e, Picture)} />
+        <Mark30 className={cx({ [styles.mark]: isMarked() })} />
         {isMarked() ? (
           <div className={styles.modalButton}>
             <button type='button' name='즐겨찾기 해제' onClick={handleChange}>
